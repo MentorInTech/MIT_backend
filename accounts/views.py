@@ -16,3 +16,5 @@ class UserCreate(APIView):
             user = serializer.save()
             if user:
                 return Response(serializer.data, status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
