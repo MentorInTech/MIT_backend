@@ -35,7 +35,7 @@ class AccountsTest(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(User.objects.count(), 1)
-        # data will be: {'password': ['Ensure this field has at least 8 characters.']}
+        # data will be like: {'password': ['Ensure this field has at least 8 characters.']}
         self.assertEqual(len(response.data['password']), 1)
 
     def test_create_user_with_no_password(self):
@@ -49,3 +49,42 @@ class AccountsTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(User.objects.count(), 1)
         self.assertEqual(len(response.data['password']), 1)
+
+    def test_create_user_with_too_long_username(self):
+        data = {
+            'username': 'foo'*30,
+            'email': 'foobar@example.com',
+            'password': 'somepassword',
+        }
+
+        response = self.client.post(self.create_url, data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(User.objects.count(), 1)
+        self.assertEqual(len(response.data['username']), 1)
+
+    def test_create_user_with_no_username(self):
+        data = {
+            'username': '',
+            'email': 'foobar@example.com',
+            'password': 'somepassword',
+        }
+
+        response = self.client.post(self.create_url, data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(User.objects.count(), 1)
+        self.assertEqual(len(response.data['username']), 1)
+
+    def test_create_user_with_preexist_username(self):
+        data = {
+            'username': 'test',
+            'email': 'foobar@example.com',
+            'password': 'somepassword',
+        }
+
+        response = self.client.post(self.create_url, data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(User.objects.count(), 1)
+        self.assertEqual(len(response.data['username']), 1)
