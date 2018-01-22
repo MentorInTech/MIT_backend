@@ -66,6 +66,10 @@ REST_FRAMEWORK = {
     ),
 }
 
+JWT_AUTH = {
+    'JWT_ALLOW_REFRESH': True,
+}
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
