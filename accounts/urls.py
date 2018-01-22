@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
     path('register/', views.UserCreate.as_view(), name='account-create'),
-    path('login/', obtain_jwt_token),
-    path('token-verify/', verify_jwt_token),
-    path('token-refresh/', refresh_jwt_token),
+    path('login/', obtain_jwt_token, name='login'),
+    path('token-verify/', verify_jwt_token, name='token-verify'),
+    path('token-refresh/', refresh_jwt_token, name='token-refresh'),
 ]

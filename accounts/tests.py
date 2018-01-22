@@ -127,3 +127,31 @@ class AccountsTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(User.objects.count(), 1)
         self.assertEqual(len(response.data['email']), 1)
+
+
+class JWTTest(APITestCase):
+
+    def setUp(self):
+        self.user_credential = {
+            'username': 'test',
+            'password': 'testpassword',
+            'email': 'test@example.com'
+        }
+        self.test_user = User.objects.create_user(**self.user_credential)
+        self.login_url = reverse('login')
+        self.token_verify_url = reverse('token-verify')
+        self.token_refresh_url = reverse('token-refresh')
+
+    def test_user_login_flow(self):
+        login_response = self.client.post(self.login_url, self.user_credential, format='json')
+        token = login_response.data['token']
+        verify_response = self.client.post(self.token_verify_url, {'token': token}, format='json')
+
+        self.assertEqual(token, verify_response.data['token'])
+
+    def test_user_refresh_token(self):
+        token = self.client.post(self.login_url, self.user_credential, format='json').data['token']
+
+        refresh_response = self.client.post(self.token_refresh_url, self.user_credential, format='json')
+
+        self.assertNotEqual(token, refresh_response.data['token'])
