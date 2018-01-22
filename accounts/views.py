@@ -6,9 +6,12 @@ from .serializers import UserSerializer
 
 
 class UserCreate(APIView):
+    """API to create User.
+
+    post:
+    Create new user account.
     """
-    API to create User.
-    """
+
     permission_classes = ()
     authentication_classes = ()
     serializer_class = UserSerializer

@@ -5,6 +5,7 @@ from rest_framework import status
 
 
 class AccountsTest(APITestCase):
+
     def setUp(self):
         self.test_user = User.objects.create_user('test', 'test@example.com', 'testpassword')
         self.create_url = reverse('account-create')
@@ -52,7 +53,7 @@ class AccountsTest(APITestCase):
 
     def test_create_user_with_too_long_username(self):
         data = {
-            'username': 'foo'*30,
+            'username': 'foo' * 30,
             'email': 'foobar@example.com',
             'password': 'somepassword',
         }

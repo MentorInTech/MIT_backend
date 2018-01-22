@@ -9,6 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     This only serializes: "id", "username", "email", "password".
     """
+
     email = serializers.EmailField(
         required=True,
         validators=[UniqueValidator(queryset=User.objects.all())]
