@@ -8,7 +8,7 @@ class AccountsTest(APITestCase):
 
     def setUp(self):
         self.test_user = User.objects.create_user('test', 'test@example.com', 'testpassword')
-        self.create_url = reverse('account-create')
+        self.create_url = reverse('account_create')
 
     def test_create_user_return_valid_token(self):
         data = {
@@ -156,3 +156,21 @@ class JWTTest(APITestCase):
         refresh_response = self.client.post(self.token_refresh_url, self.user_credential, format='json')
 
         self.assertNotEqual(token, refresh_response.data['token'])
+
+
+class SignupTest(APITestCase):
+
+    def setUp(self):
+        self.user_credential = {
+            'username': 'test',
+            'password': 'testpassword',
+            'email': 'test@example.com'
+        }
+        self.signup_url = reverse('account_create')
+
+    def test_new_signup_account_not_activated(self):
+        signup_response = self.client.post(self.signup_url, self.user_credential, format='json')
+
+        self.assertEqual(signup_response.status_code, status.HTTP_201_CREATED)
+        self.assertFalse(User.objects.last().is_active)
+

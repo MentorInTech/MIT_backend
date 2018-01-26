@@ -26,6 +26,9 @@ class UserCreate(APIView):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
+            # TODO temporary overloading is_active field as a mean to confirm the email.
+            # A better solution would be implement a profile model and add a is_email_confirmed
+            # field there.
             user.is_active = False
             user.save()
             if user:
@@ -46,6 +49,12 @@ Please click on the link to confirm your registration,
 
 
 class ActivateAccount(APIView):
+    """API to activate account after signing-up.
+
+    get:
+    Confirm email address.
+    """
+
     permission_classes = ()
     authentication_classes = ()
 
