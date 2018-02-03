@@ -6,6 +6,8 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from .models import Profile
+
 
 class AccountsTest(APITestCase):
 
@@ -202,3 +204,24 @@ class SignupTest(APITestCase):
     def find_links(text):
         urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', text)
         return urls
+
+
+class TestProfile(APITestCase):
+
+    def test_creating_user_model_also_creates_profile_model(self):
+        user = User.objects.create()
+
+        profile = user.profile
+        self.assertIsNotNone(profile)
+        self.assertEqual(profile.user, user)
+
+    def test_saving_user_also_saves_profile(self):
+        city_name_to_save = 'SF'
+        user = User.objects.create()
+        self.assertEqual(user.profile.city, '')
+
+        user.profile.city = city_name_to_save
+        user.save()
+
+        new_profile = Profile.objects.get(user=user)
+        self.assertEqual(new_profile.city, city_name_to_save)
