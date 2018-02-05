@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.views import APIView
 
-from .serializers import UserSerializer
+from .serializers import UserSerializer, ProfileSerializer
 from .tokens import account_activation_token
 
 
@@ -83,3 +83,27 @@ class ActivateAccount(APIView):
                             status.HTTP_200_OK)
         else:
             return Response('Activation link is invalid!', status.HTTP_400_BAD_REQUEST)
+
+
+class Profile(APIView):
+    """API resource for user profile.
+
+    get:
+    Get user profile.
+
+    put:
+    Update user profile.
+    """
+
+    def get(self, request: Request) -> Response:
+        user = request.user
+        serializer = ProfileSerializer(user.profile)
+        return Response(serializer.data, status.HTTP_200_OK)
+
+    def put(self, request: Request) -> Response:
+        user = request.user
+        serializer = ProfileSerializer(user.profile, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status.HTTP_200_OK)
+        return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)

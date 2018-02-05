@@ -7,6 +7,8 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from .models import Profile
+
 
 class AccountsTest(APITestCase):
 
@@ -203,3 +205,71 @@ class SignupTest(APITestCase):
     def find_links(text: str) -> List[Optional[str]]:
         urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', text)
         return urls
+
+
+class TestProfile(APITestCase):
+    def setUp(self):
+        self.test_user = User.objects.create_user('test', 'test@example.com', 'testpassword')
+        self.test_user.is_active = True
+        self.test_user.save()
+        self.profile_url = reverse('profile')
+        self.default_profile = {
+            'age_range': '',
+            'city': '',
+            'state_province': '',
+            'job_role': '',
+            'job_category': '',
+            'job_level': '',
+            'job_years': 0,
+            'education_degree': '',
+            'education_school': '',
+            'education_major': '',
+            'education_year_graduated': 0,
+            'interests': ''
+        }
+
+    def test_creating_user_model_also_creates_profile_model(self):
+        user = User.objects.create()
+
+        profile = user.profile
+        self.assertIsNotNone(profile)
+        self.assertEqual(profile.user, user)
+
+    def test_saving_user_also_saves_profile(self):
+        city_name_to_save = 'SF'
+        user = User.objects.create()
+        self.assertEqual(user.profile.city, '')
+
+        user.profile.city = city_name_to_save
+        user.save()
+
+        new_profile = Profile.objects.get(user=user)
+        self.assertEqual(new_profile.city, city_name_to_save)
+
+    def test_get_user_profile(self):
+        self.client.login(username='test', password='testpassword')
+        resp = self.client.get(self.profile_url)
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        self.assertEqual(resp.data, self.default_profile)
+
+    def test_cannot_access_profile_when_logout(self):
+        resp = self.client.get(self.profile_url)
+        self.assertEqual(resp.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_update_profile(self):
+        data = {
+            'city': 'SF',
+        }
+        self.client.login(username='test', password='testpassword')
+        resp = self.client.put(self.profile_url, data)
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        self.assertEqual(resp.data, {**self.default_profile, **data})
+
+    def test_update_profile_with_wrong_data(self):
+        data = {
+            'permission': 'highest'
+        }
+        self.client.login(username='test', password='testpassword')
+        resp = self.client.put(self.profile_url, data)
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        self.assertEqual(resp.data, self.default_profile)

@@ -9,4 +9,6 @@ urlpatterns = [
     path('login/', obtain_jwt_token, name='login'),
     path('token-verify/', verify_jwt_token, name='token-verify'),
     path('token-refresh/', refresh_jwt_token, name='token-refresh'),
+
+    path('profile/', views.Profile.as_view(), name='profile'),
 ]
