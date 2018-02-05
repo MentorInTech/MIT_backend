@@ -1,14 +1,18 @@
-from django.urls import reverse
+import re
+from typing import List, Optional
+
 from django.contrib.auth.models import User
-from rest_framework.test import APITestCase
+from django.core import mail
+from django.urls import reverse
 from rest_framework import status
+from rest_framework.test import APITestCase
 
 
 class AccountsTest(APITestCase):
 
     def setUp(self):
         self.test_user = User.objects.create_user('test', 'test@example.com', 'testpassword')
-        self.create_url = reverse('account-create')
+        self.create_url = reverse('account_create')
 
     def test_create_user_return_valid_token(self):
         data = {
@@ -156,3 +160,46 @@ class JWTTest(APITestCase):
         refresh_response = self.client.post(self.token_refresh_url, self.user_credential, format='json')
 
         self.assertNotEqual(token, refresh_response.data['token'])
+
+
+class SignupTest(APITestCase):
+
+    def setUp(self):
+        self.user_credential = {
+            'username': 'test',
+            'password': 'testpassword',
+            'email': 'test@example.com'
+        }
+        self.signup_url = reverse('account_create')
+
+    def test_new_signup_account_not_activated(self):
+        signup_response = self.client.post(self.signup_url, self.user_credential, format='json')
+
+        self.assertEqual(signup_response.status_code, status.HTTP_201_CREATED)
+        self.assertFalse(User.objects.last().is_active)
+
+    def test_email_confirmation_is_sent(self):
+        self.client.post(self.signup_url, self.user_credential, format='json')
+
+        user = User.objects.last()
+        self.assertEqual(len(mail.outbox), 1)
+        confirmation_email = mail.outbox[0]
+        self.assertIn(user.username, confirmation_email.body)
+        urls = SignupTest.find_links(confirmation_email.body)
+        self.assertTrue(urls)
+
+    def test_activate_account(self):
+        self.client.post(self.signup_url, self.user_credential, format='json')
+
+        confirmation_email = mail.outbox[0]
+        urls = SignupTest.find_links(confirmation_email.body)
+        for url in urls:
+            self.client.get(url)
+
+        user = User.objects.last()
+        self.assertEqual(user.is_active, True)
+
+    @staticmethod
+    def find_links(text: str) -> List[Optional[str]]:
+        urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', text)
+        return urls
