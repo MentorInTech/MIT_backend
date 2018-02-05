@@ -3,6 +3,7 @@ from django.core.mail import send_mail
 from django.utils.encoding import force_text, force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from rest_framework import status
+from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.views import APIView
@@ -58,7 +59,17 @@ class ActivateAccount(APIView):
     permission_classes = ()
     authentication_classes = ()
 
-    def get(self, request, uidb64, token):
+    def get(self, request: Request, uidb64: str, token: str) -> Response:
+        """Verify the user and account activation token.
+
+        Args:
+            request: Django request object.
+            uidb64: A str of user.id that was encoded in base64 algorithm.
+            token: A str of account activation token.
+
+        Returns:
+            HTTP_200_OK if user is activated. HTTP_400_BAD_REQUEST if failed.
+        """
         try:
             uid = force_text(urlsafe_base64_decode(uidb64))
             user = User.objects.get(pk=uid)

@@ -1,4 +1,5 @@
 import re
+from typing import List, Optional
 
 from django.contrib.auth.models import User
 from django.core import mail
@@ -199,6 +200,6 @@ class SignupTest(APITestCase):
         self.assertEqual(user.is_active, True)
 
     @staticmethod
-    def find_links(text):
+    def find_links(text: str) -> List[Optional[str]]:
         urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', text)
         return urls
