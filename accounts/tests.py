@@ -14,7 +14,7 @@ class AccountsTest(APITestCase):
 
     def setUp(self):
         self.test_user = User.objects.create_user('test', 'test@example.com', 'testpassword')
-        self.create_url = reverse('account_create')
+        self.create_url = reverse('user-create')
 
     def test_create_user_return_valid_token(self):
         data = {
@@ -59,7 +59,7 @@ class AccountsTest(APITestCase):
 
     def test_create_user_with_too_long_username(self):
         data = {
-            'username': 'foo' * 30,
+            'username': 'f' * 151,
             'email': 'foobar@example.com',
             'password': 'somepassword',
         }
@@ -145,9 +145,9 @@ class JWTTest(APITestCase):
             'email': 'test@example.com'
         }
         self.test_user = User.objects.create_user(**self.user_credential)
-        self.login_url = reverse('login')
-        self.token_verify_url = reverse('token-verify')
-        self.token_refresh_url = reverse('token-refresh')
+        self.login_url = reverse('jwt-create')
+        self.token_verify_url = reverse('jwt-verify')
+        self.token_refresh_url = reverse('jwt-refresh')
 
     def test_user_login_flow(self):
         login_response = self.client.post(self.login_url, self.user_credential, format='json')
@@ -172,7 +172,7 @@ class SignupTest(APITestCase):
             'password': 'testpassword',
             'email': 'test@example.com'
         }
-        self.signup_url = reverse('account_create')
+        self.signup_url = reverse('user-create')
 
     def test_new_signup_account_not_activated(self):
         signup_response = self.client.post(self.signup_url, self.user_credential, format='json')
