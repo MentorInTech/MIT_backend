@@ -196,7 +196,8 @@ class SignupTest(APITestCase):
         confirmation_email = mail.outbox[0]
         urls = SignupTest.find_links(confirmation_email.body)
         for url in urls:
-            self.client.get(url)
+            resp = self.client.get(url, follow=True)
+            self.assertEqual(resp.status_code, status.HTTP_204_NO_CONTENT)
 
         user = User.objects.last()
         self.assertEqual(user.is_active, True)

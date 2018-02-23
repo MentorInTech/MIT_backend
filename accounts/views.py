@@ -1,29 +1,33 @@
-import json
+from django.test.client import Client
+from django.urls import reverse
 from rest_framework import status
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from django.urls import reverse
-import requests
 
 from .serializers import ProfileSerializer
 
 
 class UserActivationView(APIView):
-    """
+    """API resource for user activation
 
+    get:
+    Activate user account
     """
     authentication_classes = ()
     permission_classes = ()
 
-    def get(self, request, uid, token):
-        protocol = 'https://' if request.is_secure() else 'http://'
-        web_url = protocol + request.get_host()
-        post_url = web_url + reverse('user-activate')
-        post_data = {'uid': uid, 'token': token}
-        result = requests.post(post_url, data=post_data)
-        content = result.json()
-        return Response(content)
+    def get(self, request: Request, uid: str, token: str) -> Response:
+        """Handle GET request.
+
+        :param request: DRF request object
+        :param uid: user id in base64 encoding
+        :param token: activation token
+        :return: 200 OK
+        """
+        c = Client()
+        response: Response = c.post(reverse('user-activate'), {'uid': uid, 'token': token})
+        return Response(response.content, response.status_code)
 
 
 class Profile(APIView):
