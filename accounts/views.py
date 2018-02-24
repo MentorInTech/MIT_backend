@@ -8,28 +8,6 @@ from rest_framework.views import APIView
 from .serializers import ProfileSerializer
 
 
-class UserActivationView(APIView):
-    """API resource for user activation
-
-    get:
-    Activate user account
-    """
-    authentication_classes = ()
-    permission_classes = ()
-
-    def get(self, request: Request, uid: str, token: str) -> Response:
-        """Handle GET request.
-
-        :param request: DRF request object
-        :param uid: user id in base64 encoding
-        :param token: activation token
-        :return: 200 OK
-        """
-        c = Client()
-        response: Response = c.post(reverse('user-activate'), {'uid': uid, 'token': token})
-        return Response(response.content, response.status_code)
-
-
 class Profile(APIView):
     """API resource for user profile.
 

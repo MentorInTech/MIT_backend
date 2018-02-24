@@ -1,4 +1,5 @@
 import re
+from urllib.parse import urlparse, parse_qs
 from typing import List, Optional
 
 from django.contrib.auth.models import User
@@ -187,25 +188,52 @@ class SignupTest(APITestCase):
         self.assertEqual(len(mail.outbox), 1)
         confirmation_email = mail.outbox[0]
         self.assertIn(user.username, confirmation_email.body)
-        urls = SignupTest.find_links(confirmation_email.body)
+        urls = find_links(confirmation_email.body)
         self.assertTrue(urls)
 
     def test_activate_account(self):
         self.client.post(self.signup_url, self.user_credential, format='json')
 
         confirmation_email = mail.outbox[0]
-        urls = SignupTest.find_links(confirmation_email.body)
+        urls = find_links(confirmation_email.body)
         for url in urls:
-            resp = self.client.get(url, follow=True)
+            q = parse_qs(urlparse(url).query)
+            self.assertTrue('uid' in q)
+            self.assertTrue('token' in q)
+            resp = self.client.post(reverse('user-activate'), {'uid': q['uid'][0], 'token': q['token'][0]})
             self.assertEqual(resp.status_code, status.HTTP_204_NO_CONTENT)
 
         user = User.objects.last()
         self.assertEqual(user.is_active, True)
 
-    @staticmethod
-    def find_links(text: str) -> List[Optional[str]]:
-        urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', text)
-        return urls
+
+def find_links(text: str) -> List[Optional[str]]:
+    urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', text)
+    return urls
+
+
+class PasswordResetTest(APITestCase):
+
+    def setUp(self):
+        self.old_password = 'oldpassword'
+        self.new_password = 'newpassword'
+        self.test_user: User = User.objects.create_user('test', 'test@example.com', self.old_password)
+        self.test_user.is_active = True
+
+    def test_reset_password(self):
+        self.client.post(reverse('password_reset'), {'email': self.test_user.email})
+        confirmation_email = mail.outbox[0]
+        urls = find_links(confirmation_email.body)
+
+        for url in urls:
+            q = parse_qs(urlparse(url).query)
+            self.assertTrue('uid' in q)
+            self.assertTrue('token' in q)
+            resp = self.client.post(reverse('password_reset_confirm'), {'uid': q['uid'][0], 'token': q['token'][0], 'new_password': self.new_password})
+            self.assertEqual(resp.status_code, status.HTTP_204_NO_CONTENT)
+
+        self.assertFalse(self.client.login(username='test', password=self.old_password))
+        self.assertTrue(self.client.login(username='test', password=self.new_password))
 
 
 class TestProfile(APITestCase):
