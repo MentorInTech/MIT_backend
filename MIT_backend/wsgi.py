@@ -1,4 +1,7 @@
 """
+Copyright (c) 2018， Silicon Valley Career Women.
+All rights reserved.
+
 WSGI config for MIT_backend project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.

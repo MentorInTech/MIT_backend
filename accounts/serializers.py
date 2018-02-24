@@ -1,7 +1,11 @@
-from rest_framework import serializers
-from rest_framework.validators import UniqueValidator
+"""
+Copyright (c) 2018， Silicon Valley Career Women.
+All rights reserved.
+"""
 from django.contrib.auth.models import User
 from djoser.serializers import UserCreateSerializer
+from rest_framework import serializers
+from rest_framework.validators import UniqueValidator
 
 from .models import Profile
 

@@ -1,4 +1,8 @@
-"""MIT_backend URL Configuration
+"""
+Copyright (c) 2018， Silicon Valley Career Women.
+All rights reserved.
+
+MIT_backend URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.0/topics/http/urls/

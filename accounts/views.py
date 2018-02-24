@@ -1,5 +1,7 @@
-from django.test.client import Client
-from django.urls import reverse
+"""
+Copyright (c) 2018， Silicon Valley Career Women.
+All rights reserved.
+"""
 from rest_framework import status
 from rest_framework.request import Request
 from rest_framework.response import Response

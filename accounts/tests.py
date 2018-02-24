@@ -1,6 +1,10 @@
+"""
+Copyright (c) 2018， Silicon Valley Career Women.
+All rights reserved.
+"""
 import re
-from urllib.parse import urlparse, parse_qs
 from typing import List, Optional
+from urllib.parse import urlparse, parse_qs
 
 from django.contrib.auth.models import User
 from django.core import mail
@@ -229,7 +233,8 @@ class PasswordResetTest(APITestCase):
             q = parse_qs(urlparse(url).query)
             self.assertTrue('uid' in q)
             self.assertTrue('token' in q)
-            resp = self.client.post(reverse('password_reset_confirm'), {'uid': q['uid'][0], 'token': q['token'][0], 'new_password': self.new_password})
+            resp = self.client.post(reverse('password_reset_confirm'),
+                                    {'uid': q['uid'][0], 'token': q['token'][0], 'new_password': self.new_password})
             self.assertEqual(resp.status_code, status.HTTP_204_NO_CONTENT)
 
         self.assertFalse(self.client.login(username='test', password=self.old_password))
