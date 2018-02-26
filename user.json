@@ -1,0 +1,38 @@
+[
+	{
+		"name":"user1",
+		"goal_name": "SDE",
+		"skill_self_eval":2,
+		"year_of_job_category":2
+	},
+	{
+		"name":"user2",
+		"goal_name": "SDE",
+		"skill_self_eval":3,
+		"year_of_job_category":3
+	},
+	{
+		"name":"user3",
+		"goal_name": "SDE",
+		"skill_self_eval":4,
+		"year_of_job_category":4
+	},
+	{
+		"name":"user4",
+		"goal_name": "SDE",
+		"skill_self_eval":15,
+		"year_of_job_category":16
+	},
+	{
+		"name":"user5",
+		"goal_name": "SDE",
+		"skill_self_eval":20,
+		"year_of_job_category":19
+	},
+	{
+		"name":"user6",
+		"goal_name": "SDE",
+		"skill_self_eval":3,
+		"year_of_job_category":0
+	},
+]
