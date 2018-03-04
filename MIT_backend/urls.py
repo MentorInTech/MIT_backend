@@ -1,4 +1,8 @@
-"""MIT_backend URL Configuration
+"""
+Copyright (c) 2018， Silicon Valley Career Women.
+All rights reserved.
+
+MIT_backend URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.0/topics/http/urls/
@@ -19,7 +23,11 @@ from rest_framework_swagger.views import get_swagger_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('user/', include('accounts.urls')),
 
-    path('docs/', get_swagger_view(title='Mentor In Tech API')),
+    path('user/', include('accounts.urls')),
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.authtoken')),
+    path('auth/', include('djoser.urls.jwt')),
+
+    path('docs/', get_swagger_view(title='Mentor In Tech API doc')),
 ]
