@@ -8,6 +8,7 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
 from .models import Profile
+from goals.serializers import GoalSerializer
 
 
 class EmailRequiredUserCreateSerializer(UserCreateSerializer):
@@ -25,9 +26,10 @@ class EmailRequiredUserCreateSerializer(UserCreateSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     """Serializer for Profile model."""
+    goals = GoalSerializer(many=True, read_only=True)
 
     class Meta:
         model = Profile
         fields = ('age_range', 'city', 'state_province', 'job_role', 'job_category',
                   'job_level', 'job_years', 'education_degree', 'education_school',
-                  'education_major', 'education_year_graduated', 'interests')
+                  'education_major', 'education_year_graduated', 'interests', 'goals')
