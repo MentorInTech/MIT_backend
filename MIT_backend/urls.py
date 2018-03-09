@@ -20,11 +20,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from goals.views import GoalView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('user/', include('accounts.urls')),
+
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
     path('auth/', include('djoser.urls.jwt')),
+
+    path('goal/', GoalView.as_view(), name='goal')
 ]

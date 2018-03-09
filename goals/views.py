@@ -1,3 +1,10 @@
-from django.shortcuts import render
+from rest_framework import generics
+from .serializers import GoalSerializer
 
-# Create your views here.
+
+class GoalView(generics.ListCreateAPIView):
+    serializer_class = GoalSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return user.profile.goals.all()
