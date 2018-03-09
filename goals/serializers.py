@@ -9,7 +9,7 @@ class GoalSerializer(serializers.ModelSerializer):
         fields = ('program_title', 'role', 'score')
 
     def create(self, validated_data):
-        return Goal(**validated_data)
+        return Goal.objects.create(**validated_data, profile=self.context['request'].user.profile)
 
     def update(self, instance, validated_data):
         instance.program_title = validated_data.get('program_title', instance.program_title)
