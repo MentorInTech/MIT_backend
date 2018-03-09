@@ -1,0 +1,28 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+
+Django = "*"
+djangorestframework = "*"
+"djangorestframework-jwt" = "*"
+djoser = "*"
+"psycopg2-binary" = "*"
+
+
+[dev-packages]
+
+Django = "*"
+djangorestframework = "*"
+"djangorestframework-jwt" = "*"
+djoser = "*"
+"psycopg2-binary" = "*"
+coverage = "*"
+isort = "*"
+"flake8" = "*"
+
+
+[requires]
+python_version = "3.6"
