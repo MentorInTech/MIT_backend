@@ -14,8 +14,10 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+
 from django.core.exceptions import ImproperlyConfigured
- 
+
+
 def get_env_variable(var_name):
     try:
         return os.environ[var_name]
@@ -53,6 +55,7 @@ INSTALLED_APPS = [
     'rest_framework_swagger',
 
     'accounts',
+    'goals',
 ]
 
 MIDDLEWARE = [
