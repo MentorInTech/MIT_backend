@@ -26,7 +26,7 @@ class EmailRequiredUserCreateSerializer(UserCreateSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     """Serializer for Profile model."""
-    goals = GoalSerializer(many=True, read_only=True)
+    goals = GoalSerializer(many=True, read_only=True, source='goal_set')
 
     class Meta:
         model = Profile

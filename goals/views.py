@@ -7,4 +7,4 @@ class GoalView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        return user.profile.goals.all()
+        return user.profile.goal_set.all()

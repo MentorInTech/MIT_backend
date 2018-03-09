@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from goals.models import Goal
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -30,8 +29,6 @@ class Profile(models.Model):
 
     # Misc
     interests = models.TextField(blank=True)
-
-    goals = models.ManyToManyField(Goal)
 
     def __str__(self):
         return self.user.username
