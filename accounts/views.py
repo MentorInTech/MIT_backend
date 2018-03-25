@@ -6,11 +6,12 @@ from rest_framework import status
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import generics
 
 from .serializers import ProfileSerializer
 
 
-class Profile(APIView):
+class Profile(generics.RetrieveUpdateAPIView):
     """API resource for user profile.
 
     get:
@@ -19,16 +20,8 @@ class Profile(APIView):
     put:
     Update user profile.
     """
+    serializer_class = ProfileSerializer
 
-    def get(self, request: Request) -> Response:
-        user = request.user
-        serializer = ProfileSerializer(user.profile)
-        return Response(serializer.data, status.HTTP_200_OK)
-
-    def put(self, request: Request) -> Response:
-        user = request.user
-        serializer = ProfileSerializer(user.profile, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status.HTTP_200_OK)
-        return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+    def get_object(self):
+        user = self.request.user
+        return user.profile

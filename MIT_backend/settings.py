@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'djoser',
 
+    'rest_framework_swagger',
+
     'accounts',
 ]
 
