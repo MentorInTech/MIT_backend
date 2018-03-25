@@ -56,6 +56,7 @@ INSTALLED_APPS = [
 
     'accounts',
     'goals',
+    'programs',
 ]
 
 MIDDLEWARE = [

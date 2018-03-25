@@ -260,6 +260,7 @@ class TestProfile(APITestCase):
             'education_major': '',
             'education_year_graduated': 0,
             'interests': '',
+            'programs': [],
         }
 
     def test_creating_user_model_also_creates_profile_model(self):

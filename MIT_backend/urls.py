@@ -30,5 +30,7 @@ urlpatterns = [
     path('auth/', include('djoser.urls.authtoken')),
     path('auth/', include('djoser.urls.jwt')),
 
+    path('programs/', include('programs.urls')),
+
     path('docs/', get_swagger_view(title='Mentor In Tech API doc')),
 ]
