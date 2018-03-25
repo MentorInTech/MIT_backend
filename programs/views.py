@@ -8,3 +8,11 @@ class ProgramListView(generics.ListCreateAPIView):
     def get_queryset(self):
         user = self.request.user
         return user.profile.program_set.all()
+
+
+class ProgramDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ProgramSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return user.profile.program_set.all()

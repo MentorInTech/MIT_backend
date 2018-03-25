@@ -6,7 +6,7 @@ class ProgramSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Program
-        fields = ('title', 'role', 'score')
+        fields = ('id', 'title', 'role', 'score')
 
     def create(self, validated_data):
         return Program.objects.create(**validated_data, profile=self.context['request'].user.profile)
