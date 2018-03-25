@@ -24,7 +24,7 @@ class TestAPI(APITestCase):
     def setUp(self):
         self.user = User.objects.create_user('test', 'test@example.com', 'testpassword')
         self.client.login(username='test', password='testpassword')
-        self.programs_url = reverse('program_list')
+        self.programs_url = reverse('program-list')
 
     def test_list_empty_goals(self):
         resp = self.client.get(self.programs_url)

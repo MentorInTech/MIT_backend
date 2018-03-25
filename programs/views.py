@@ -1,16 +1,9 @@
 from rest_framework import generics
+from rest_framework import viewsets
 from .serializers import ProgramSerializer
 
 
-class ProgramListView(generics.ListCreateAPIView):
-    serializer_class = ProgramSerializer
-
-    def get_queryset(self):
-        user = self.request.user
-        return user.profile.program_set.all()
-
-
-class ProgramDetailView(generics.RetrieveUpdateDestroyAPIView):
+class ProgramViewSet(viewsets.ModelViewSet):
     serializer_class = ProgramSerializer
 
     def get_queryset(self):
