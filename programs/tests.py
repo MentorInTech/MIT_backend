@@ -1,9 +1,10 @@
 from django.test import TestCase
-from rest_framework.test import APITestCase
-from accounts.models import User
-from programs.models import Program
 from django.urls import reverse
 from rest_framework import status
+from rest_framework.test import APITestCase
+
+from accounts.models import User
+from programs.models import Program
 
 
 class TestModel(TestCase):

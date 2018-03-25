@@ -2,11 +2,10 @@
 Copyright (c) 2018， Silicon Valley Career Women.
 All rights reserved.
 """
-from rest_framework import status
+from rest_framework import generics, status
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import generics
 
 from .serializers import ProfileSerializer
 

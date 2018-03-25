@@ -7,8 +7,9 @@ from djoser.serializers import UserCreateSerializer
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
-from .models import Profile
 from programs.serializers import ProgramSerializer
+
+from .models import Profile
 
 
 class EmailRequiredUserCreateSerializer(UserCreateSerializer):
