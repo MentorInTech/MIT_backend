@@ -20,6 +20,8 @@ class Profile(APIView):
     Update user profile.
     """
 
+    serializer_class = ProfileSerializer
+
     def get(self, request: Request) -> Response:
         user = request.user
         serializer = ProfileSerializer(user.profile)

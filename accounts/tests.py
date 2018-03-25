@@ -4,7 +4,7 @@ All rights reserved.
 """
 import re
 from typing import List, Optional
-from urllib.parse import urlparse, parse_qs
+from urllib.parse import parse_qs, urlparse
 
 from django.contrib.auth.models import User
 from django.core import mail
@@ -259,7 +259,8 @@ class TestProfile(APITestCase):
             'education_school': '',
             'education_major': '',
             'education_year_graduated': 0,
-            'interests': ''
+            'interests': '',
+            'goals': [],
         }
 
     def test_creating_user_model_also_creates_profile_model(self):
