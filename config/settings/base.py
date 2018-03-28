@@ -54,9 +54,9 @@ INSTALLED_APPS = [
 
     'rest_framework_swagger',
 
-    'accounts',
-    'goals',
-    'programs',
+    'MIT_backend.accounts',
+    'MIT_backend.goals',
+    'MIT_backend.programs',
 ]
 
 MIDDLEWARE = [
@@ -69,7 +69,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'MIT_backend.urls'
+ROOT_URLCONF = 'config.urls'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
@@ -92,7 +92,7 @@ DJOSER = {
     'ACTIVATION_URL': '/activate?uid={uid}&token={token}',
     'SEND_ACTIVATION_EMAIL': True,
     'SERIALIZERS': {
-        'user_create': 'accounts.serializers.EmailRequiredUserCreateSerializer'
+        'user_create': 'MIT_backend.accounts.serializers.EmailRequiredUserCreateSerializer'
     }
 }
 
@@ -118,7 +118,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'MIT_backend.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases

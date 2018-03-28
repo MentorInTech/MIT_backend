@@ -24,13 +24,13 @@ from rest_framework_swagger.views import get_swagger_view
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('user/', include('accounts.urls')),
+    path('user/', include('MIT_backend.accounts.urls')),
 
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
     path('auth/', include('djoser.urls.jwt')),
 
-    path('programs/', include('programs.urls')),
+    path('programs/', include('MIT_backend.programs.urls')),
 
     path('docs/', get_swagger_view(title='Mentor In Tech API doc')),
 ]
