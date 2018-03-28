@@ -1,9 +1,7 @@
 [run]
 branch = True
-omit =
-    .env/*
-    manage.py
-    **/migrations/*
+include = MIT_backend/*
+omit = *migrations*, *tests*
 
 [report]
 # Regexes for lines to exclude from consideration
