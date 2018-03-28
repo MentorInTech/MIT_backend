@@ -1,7 +1,10 @@
+"""
+Copyright (c) 2018， Silicon Valley Career Women.
+All rights reserved.
+"""
 from rest_framework import viewsets
 
 from .serializers import ProgramSerializer
-from .models import Program
 
 
 class ProgramViewSet(viewsets.ModelViewSet):
