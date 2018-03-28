@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 
 from .serializers import ProgramSerializer
+from .models import Program
 
 
 class ProgramViewSet(viewsets.ModelViewSet):
@@ -8,4 +9,4 @@ class ProgramViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return user.profile.program_set.all()
+        return user.mentee_programs.all()

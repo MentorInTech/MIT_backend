@@ -1,27 +1,21 @@
 from django.db import models
-
-from accounts.models import Profile
+from django.contrib.auth.models import User
 
 
 class Program(models.Model):
-    # CHOICES
-    MENTOR = 'MTR'
-    MENTEE = 'MTE'
-    ROLE_CHOICES = (
-        (MENTOR, 'mentor'),
-        (MENTEE, 'mentee'),
-    )
 
     title = models.CharField(max_length=30)
-    role = models.CharField(max_length=3, choices=ROLE_CHOICES)
-    score = models.IntegerField(null=True)
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    score = models.IntegerField(blank=True, null=True)
+    mentor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='mentor_programs')
+    mentee = models.ForeignKey(User, on_delete=models.CASCADE, related_name='mentee_programs')
+    goal = models.CharField(max_length=130, blank=True, null=True)
+    started = models.DateTimeField(blank=True, null=True, auto_now_add=True)
+    ended = models.DateTimeField(blank=True, null=True)
+    last_updated = models.DateTimeField(auto_now=True)
+    next_sync_up_time = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
-        return f'{self.role} for {self.program_title}'
-
-    def is_mentor(self):
-        return self.role == Program.MENTOR
+        return f'{self.title}'
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

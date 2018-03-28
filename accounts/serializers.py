@@ -28,11 +28,8 @@ class EmailRequiredUserCreateSerializer(UserCreateSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     """Serializer for Profile model."""
 
-    programs = ProgramSerializer(many=True, read_only=True, source='program_set')
-
     class Meta:
         model = Profile
         fields = ('age_range', 'city', 'state_province', 'job_role', 'job_category',
                   'job_level', 'job_years', 'education_degree', 'education_school',
-                  'education_major', 'education_year_graduated', 'interests', 'programs')
-        read_only_fields = ('programs',)
+                  'education_major', 'education_year_graduated', 'interests')
