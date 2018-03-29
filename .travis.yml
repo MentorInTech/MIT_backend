@@ -1,9 +1,13 @@
 language: python
 python:
-- '3.6'
-- nightly
+  - '3.6'
+  - nightly
+install:
+  - pip install -r requirements-dev.txt
 script:
-- python manage.py test
+  - coverage run manage.py test
+after_success:
+  - coveralls
 notifications:
   slack:
     secure: bi2QNYY/MDopI8Yo+NVfUm35b1pqrRME+zLI30FEKJDmijDQxUMmQ2INdO7sEM793SfDuXxUzsDP3a33zesYEzvIeMfxpXPcyOrVzYiAtQo80tuC0NBHvU/3VT4ylRhpWZWusOK7WAELV+g3/TP8KA4Kn3rpbrXpXeOkVHp/PDKMQXXTciLkyHLFTEHR1RMFt2ol+OOmd3G0FB5xN8aVq8hP0rv9OA9+605LohLfagRAfg0ryGkrxl1HZYF2glJaoPUC+PrA/gNcaODuvHDaCtsmxqwTjX/9ypSIR1kzC7YRNDqYmmnw3tVxC12QwbPIx0MbCrAnqK5ZSC1/0BnyJlaGryDx+601+j2u3EdgjEbdC/saqb3Qbf0X1oZ+0qtZ6FWr6QotAjmHXkszkyaI/SYlIvK1LTqMf27EGuiXTzlKJtqtgBaqKwuYtMZBISe8jM+2drcK9ogueeXBs2DVuMCwDgI2qYzMcznHI/qbMTWDeKCdtda1PbNQbj8blzjPACMqyiY3n++5rmHLhjUGVtDTSofPjZ0zv1g87cSosVxtONXUcEOsE5J9m+8C1VYExNi7s+YhiKpn3WgcaVm3kWyJtf02gK7nYb+1K/HziIRF6y3JFbXJdZIuRRGi1QMf0U+WzU4O9Zd4SFxLHUXW0uZMFi3PezwKLK0qApd72Kg=
@@ -14,3 +18,4 @@ env:
     - DATABASE_NAME=mit
     - DATABASE_USER=postgres
     - DATABASE_PASSWORD=""
+

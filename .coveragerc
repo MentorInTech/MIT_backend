@@ -22,6 +22,3 @@ exclude_lines =
     if __name__ == .__main__.:
 
 ignore_errors = True
-
-[html]
-directory = coverage_html_report

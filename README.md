@@ -1,6 +1,7 @@
 # MIT_backend
 
 [![Build Status](https://travis-ci.org/MentorInTech/MIT_backend.svg?branch=develop)](https://travis-ci.org/MentorInTech/MIT_backend)
+[![Coverage Status](https://coveralls.io/repos/github/MentorInTech/MIT_backend/badge.svg?branch=organize-project)](https://coveralls.io/github/MentorInTech/MIT_backend?branch=organize-project)
 
 ## Quick start
 
