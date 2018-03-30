@@ -5,16 +5,17 @@ name = "pypi"
 
 [packages]
 
-Django = "*"
+django = "*"
 djangorestframework = "*"
 "djangorestframework-jwt" = "*"
 djoser = "*"
 "psycopg2-binary" = "*"
+"django-rest-swagger" = "*"
 
 
 [dev-packages]
 
-Django = "*"
+django = "*"
 djangorestframework = "*"
 "djangorestframework-jwt" = "*"
 djoser = "*"
