@@ -1,10 +1,14 @@
+"""
+Copyright (c) 2018， Silicon Valley Career Women.
+All rights reserved.
+"""
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from accounts.models import User
-from programs.models import Program
+from django.contrib.auth.models import User
+from MIT_backend.programs.models import Program
 
 
 class TestModel(TestCase):

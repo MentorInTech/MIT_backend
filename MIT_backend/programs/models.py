@@ -1,9 +1,12 @@
-from django.db import models
+"""
+Copyright (c) 2018， Silicon Valley Career Women.
+All rights reserved.
+"""
 from django.contrib.auth.models import User
+from django.db import models
 
 
 class Program(models.Model):
-
     title = models.CharField(max_length=30)
     score = models.IntegerField(blank=True, null=True)
     mentor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='mentor_programs')

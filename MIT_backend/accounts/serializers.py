@@ -7,8 +7,6 @@ from djoser.serializers import UserCreateSerializer
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
-from programs.serializers import ProgramSerializer
-
 from .models import Profile
 
 

@@ -1,3 +1,7 @@
+"""
+Copyright (c) 2018， Silicon Valley Career Women.
+All rights reserved.
+"""
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
