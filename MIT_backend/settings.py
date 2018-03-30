@@ -14,8 +14,10 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+
 from django.core.exceptions import ImproperlyConfigured
- 
+
+
 def get_env_variable(var_name):
     try:
         return os.environ[var_name]
@@ -53,6 +55,8 @@ INSTALLED_APPS = [
     'rest_framework_swagger',
 
     'accounts',
+    'goals',
+    'programs',
 ]
 
 MIDDLEWARE = [
@@ -80,6 +84,7 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
     ),
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
 
 DJOSER = {
