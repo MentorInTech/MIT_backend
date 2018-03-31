@@ -132,3 +132,27 @@ Start the development server at localhost:8000
 ```
 $ python manage.py runserver
 ```
+
+## Project layout
+
+The project layout is influenced by [@pydanny](https://twitter.com/pydanny)'s
+[cookiecutter-django](https://github.com/pydanny/cookiecutter-django)
+project. Instead of the Django's built-in startproject command to scaffold
+our project, the application code is split from the configuration code.
+
+```
+MIT_backend/ : project root
+  |
+  |--config/ : all the configurations and settings
+  |
+  |--MIT_backend/ : application root
+```
+
+If you want to create new apps for this Django project, create it in the
+application root instead of the project root.
+
+## Resources
+
+1. [Django official tutorial](https://docs.djangoproject.com/en/2.0/intro/tutorial01/)
+1. [Django Rest Framework (DRF) tutorial](http://www.django-rest-framework.org/tutorial/1-serialization/)
+1. [Djoser](http://djoser.readthedocs.io/en/stable/)
