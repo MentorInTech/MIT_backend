@@ -11,6 +11,8 @@ djangorestframework = "*"
 djoser = "*"
 "psycopg2-binary" = "*"
 "django-rest-swagger" = "*"
+celery = "*"
+redis = "*"
 
 
 [dev-packages]
