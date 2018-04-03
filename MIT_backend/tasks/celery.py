@@ -1,3 +1,7 @@
+"""
+Copyright (c) 2018， Silicon Valley Career Women.
+All rights reserved.
+"""
 import os
 from celery import Celery
 from django.apps import apps, AppConfig
