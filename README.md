@@ -34,6 +34,7 @@ also checkout the Swagger API doc on `http://localhost:8000/docs/`.
 
 * Python > 3.6
 * Postgres
+* Redis
 
 ## Installation
 
@@ -76,6 +77,12 @@ By default, a database user, named by your system user name with empty password
 is created. Also, a database named by your system user name is created.
 It's your choice to use the database/user or create your own for the app
 development.
+
+### Redis
+
+Redis is useful for caching and as a message broker. Currently it's
+only been used as the message broker for running background tasks using
+celery.
 
 ### Configuration
 
@@ -133,6 +140,20 @@ Start the development server at localhost:8000
 $ python manage.py runserver
 ```
 
+### Celery
+
+This app comes with Celery.
+
+To run a celery worker:
+
+```
+celery -A MIT_backend.tasks worker -l info
+```
+
+Please note: For Celery's import magic to work, it is important where the
+celery commands are run. If you are in the same folder with manage.py,
+you should be right.
+
 ## Project layout
 
 The project layout is influenced by [@pydanny](https://twitter.com/pydanny)'s
@@ -155,4 +176,5 @@ application root instead of the project root.
 
 1. [Django official tutorial](https://docs.djangoproject.com/en/2.0/intro/tutorial01/)
 1. [Django Rest Framework (DRF) tutorial](http://www.django-rest-framework.org/tutorial/1-serialization/)
-1. [Djoser](http://djoser.readthedocs.io/en/stable/)
+1. [Authentication with Djoser](http://djoser.readthedocs.io/en/stable/)
+1. [Celery - First steps with Django](http://docs.celeryproject.org/en/latest/django/first-steps-with-django.html)
