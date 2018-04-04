@@ -4,3 +4,5 @@ djangorestframework-jwt>=1.11.0
 django-rest-swagger>=2.1.2
 djoser>=1.1.5
 psycopg2-binary>=2.7.4
+celery>=4.1.0
+redis>=2.10.6

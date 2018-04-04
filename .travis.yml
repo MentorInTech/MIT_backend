@@ -18,4 +18,6 @@ env:
     - DATABASE_NAME=mit
     - DATABASE_USER=postgres
     - DATABASE_PASSWORD=""
-
+matrix:
+  allow_failures:
+  - python: nightly
