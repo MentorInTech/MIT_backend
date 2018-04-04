@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'MIT_backend.accounts',
     'MIT_backend.goals',
     'MIT_backend.programs',
+    'MIT_backend.matching',
 ]
 
 MIDDLEWARE = [
