@@ -32,5 +32,7 @@ urlpatterns = [
 
     path('programs/', include('MIT_backend.programs.urls')),
 
+    path('mentors/', include('MIT_backend.mentors.urls')),
+
     path('docs/', get_swagger_view(title='Mentor In Tech API doc')),
 ]
