@@ -23,6 +23,7 @@ djoser = "*"
 coverage = "*"
 isort = "*"
 "flake8" = "*"
+"pytest-django" = "*"
 
 [requires]
 python_version = "3.6"
