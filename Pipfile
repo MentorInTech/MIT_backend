@@ -13,6 +13,7 @@ django-rest-swagger = "*"
 celery = "*"
 redis = "*"
 django-cors-headers = "*"
+"e1839a8" = {path = ".", editable = true}
 
 [dev-packages]
 django = "*"
@@ -24,6 +25,7 @@ coverage = "*"
 isort = "*"
 "flake8" = "*"
 "pytest-django" = "*"
+"factory-boy" = "*"
 
 [requires]
 python_version = "3.6"
