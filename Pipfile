@@ -26,6 +26,7 @@ isort = "*"
 "flake8" = "*"
 "pytest-django" = "*"
 "factory-boy" = "*"
+coveralls = "*"
 
 [requires]
 python_version = "3.6"
