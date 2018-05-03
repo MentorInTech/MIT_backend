@@ -4,28 +4,25 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-
 django = "*"
 djangorestframework = "*"
-"djangorestframework-jwt" = "*"
+djangorestframework-jwt = "*"
 djoser = "*"
 "psycopg2-binary" = "*"
-"django-rest-swagger" = "*"
+django-rest-swagger = "*"
 celery = "*"
 redis = "*"
-
+django-cors-headers = "*"
 
 [dev-packages]
-
 django = "*"
 djangorestframework = "*"
-"djangorestframework-jwt" = "*"
+djangorestframework-jwt = "*"
 djoser = "*"
 "psycopg2-binary" = "*"
 coverage = "*"
 isort = "*"
 "flake8" = "*"
-
 
 [requires]
 python_version = "3.6"
