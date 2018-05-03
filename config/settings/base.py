@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'djoser',
 
+    'corsheaders',
     'rest_framework_swagger',
 
     'MIT_backend.accounts',
@@ -62,6 +63,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -86,6 +88,10 @@ REST_FRAMEWORK = {
     ),
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
+
+CORS_ORIGIN_WHITELIST = (
+    'localhost:3000'
+)
 
 DJOSER = {
     'PASSWORD_RESET_CONFIRM_URL': '/password/reset/confirm?uid={uid}&token={token}',
