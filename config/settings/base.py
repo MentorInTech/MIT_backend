@@ -13,6 +13,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
+import datetime
 import os
 
 from django.core.exceptions import ImproperlyConfigured
@@ -106,6 +107,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 JWT_AUTH = {
     'JWT_ALLOW_REFRESH': True,
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7)
 }
 
 TEMPLATES = [
