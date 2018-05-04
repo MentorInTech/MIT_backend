@@ -23,11 +23,34 @@ class EmailRequiredUserCreateSerializer(UserCreateSerializer):
     )
 
 
-class ProfileSerializer(serializers.ModelSerializer):
-    """Serializer for Profile model."""
+class UserSerializer(serializers.ModelSerializer):
+    """Serializer for User information"""
+
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name')
+
+
+class ProfileWithoutLoginSerializer(serializers.ModelSerializer):
+    """Serializer for public Profile information"""
+
+    user = UserSerializer(read_only=True)
 
     class Meta:
         model = Profile
-        fields = ('age_range', 'city', 'state_province', 'job_role', 'job_category',
+        fields = ('user', 'city', 'state_province', 'job_role', 'job_category',
+                  'job_level', 'job_years', 'interests')
+        depth = 2
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    """Serializer for full Profile information"""
+
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = Profile
+        fields = ('user', 'age_range', 'city', 'state_province', 'job_role', 'job_category',
                   'job_level', 'job_years', 'education_degree', 'education_school',
                   'education_major', 'education_year_graduated', 'interests')
+        depth = 2

@@ -19,7 +19,7 @@ lint:
 	flake8 --exclude=.tox
 
 test: clean-pyc
-	python manage.py test
+	pytest
 
 run:
 	python manage.py runserver

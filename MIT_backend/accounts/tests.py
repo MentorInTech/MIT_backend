@@ -284,7 +284,7 @@ class TestProfile(APITestCase):
         self.client.login(username='test', password='testpassword')
         resp = self.client.get(self.profile_url)
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
-        self.assertEqual(resp.data, self.default_profile)
+        self.assertDictContainsSubset(self.default_profile, resp.data)
 
     def test_cannot_access_profile_when_logout(self):
         resp = self.client.get(self.profile_url)
@@ -297,7 +297,7 @@ class TestProfile(APITestCase):
         self.client.login(username='test', password='testpassword')
         resp = self.client.put(self.profile_url, data)
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
-        self.assertEqual(resp.data, {**self.default_profile, **data})
+        self.assertDictContainsSubset({**self.default_profile, **data}, resp.data)
 
     def test_update_profile_with_wrong_data(self):
         data = {
@@ -306,4 +306,4 @@ class TestProfile(APITestCase):
         self.client.login(username='test', password='testpassword')
         resp = self.client.put(self.profile_url, data)
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
-        self.assertEqual(resp.data, self.default_profile)
+        self.assertDictContainsSubset(self.default_profile, resp.data)
