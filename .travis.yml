@@ -15,6 +15,7 @@ services:
   - postgresql
 env:
   global:
+    - DJANGO_SETTINGS_MODULE=config.settings.test
     - DATABASE_NAME=mit
     - DATABASE_USER=postgres
     - DATABASE_PASSWORD=""

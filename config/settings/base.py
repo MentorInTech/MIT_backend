@@ -138,8 +138,8 @@ DATABASES = {
         'NAME': get_env_variable('DATABASE_NAME'),
         'USER': get_env_variable('DATABASE_USER'),
         'PASSWORD': get_env_variable('DATABASE_PASSWORD'),
-        'HOST': '127.0.0.1',
-        'PORT': '',
+        'HOST': 'db',
+        'PORT': '5432',
     }
 }
 
@@ -178,6 +178,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT =  os.path.join(BASE_DIR, "static")
 
 EMAIL_PORT = 1025
 
